@@ -1,38 +1,128 @@
-.App {
-  text-align: center;
+.app {
+  width: 100%;
+  height: 100%;
+  background-color: gainsboro;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.card{
+  min-width: 40rem;
+  width: 60%;
+  height: 70%;
+  background-color: white;
+  border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  overflow: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+.header{
+  height: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content-grid{
+  width: 100%;
+  height: 85%;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 4fr 1fr 4fr;
+  /*grid-template-rows: 1fr 3fr;*/
+  grid-auto-rows: 1fr;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+.input{
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  position: relative;
+}
+
+.entry{
+  grid-row: span 4;
+}
+
+.vars{
+  grid-row: span 2;
+}
+
+.output{
+  grid-row: span 2;
+  /*grid-column-start: 3;*/
+}
+
+.transpile{
+  grid-row: span 4;
+}
+
+.input{
+  border: solid 2px;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.input textarea,table{
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+textarea:focus{
+  border: none;
+  outline: none;
+}
+
+.input label{
+  position: absolute;
+  top: -8px;
+  left: 20px;
+  background-color: white;
+}
+
+.scrollable-area{
+  max-height: 100%;
+  overflow-y: scroll;
+}
+
+tr{
+  max-height: 0.5rem;
+}
+
+td, th {
+  border-radius: 1rem;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.transpile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  width: 100%;
+  height: 3rem;
+  border-radius: 1rem;
+  background-color: gainsboro;
+  cursor: pointer;
 }
