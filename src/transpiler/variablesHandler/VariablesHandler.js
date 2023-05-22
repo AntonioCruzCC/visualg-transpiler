@@ -23,6 +23,9 @@ export default class VariablesHandler {
 		let variables = []
 		let variableName = this.getVariableName()
 		while (variableName) {
+			if(variables.includes(variableName)){
+				throw Error('Variável "' + variableName + '" já declarada')
+			}
 			variables.push(variableName)
 			//check if the next character is a comma, if it is remove it and trim the white space on the left
 			if (this.entryCode[0] === ',') {
