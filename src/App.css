@@ -50,15 +50,6 @@
   grid-row: span 4;
 }
 
-.vars{
-  grid-row: span 2;
-}
-
-.output{
-  grid-row: span 2;
-  /*grid-column-start: 3;*/
-}
-
 .transpile{
   grid-row: span 4;
 }
@@ -91,26 +82,6 @@ textarea:focus{
   top: -8px;
   left: 20px;
   background-color: white;
-}
-
-.scrollable-area{
-  max-height: 100%;
-  overflow-y: scroll;
-}
-
-tr{
-  max-height: 0.5rem;
-}
-
-td, th {
-  border-radius: 1rem;
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
 }
 
 .transpile{

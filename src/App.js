@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Transpiler from './transpiler/Transpiler';
 
 function App() {
 
 	const [entryCode, setEntryCode] = useState('')
+	const [transpiledCode, setTrasnspiledCode] = useState('')
 
 	useEffect(() => {
 		document.title = "Transpilador de Linguagens"
 	}, []);
+
+	function transpile(){
+		try{
+			setTrasnspiledCode(new Transpiler(entryCode).transpile())
+		}catch(e){
+			alert(e.message)
+		}
+	}
 
 	return (
 		<div className='app'>
@@ -21,53 +31,11 @@ function App() {
 						<textarea value={entryCode} onChange={e => setEntryCode(e.target.value)} />
 					</div>
 					<div className='transpile'>
-						{/*<button onClick={e => transpile()}><h1>{'>>'}</h1></button>*/}
+						{<button onClick={e => transpile()}><h1>{'>>'}</h1></button>}
 					</div>
-					<div className='input vars'>
-						<label>Variáveis</label>
-						<div className='scrollable-area'>
-							<table>
-								<tbody>
-									<tr>
-										<th>Nome</th>
-										<th>Tipo</th>
-									</tr>
-									{
-										/*results && results.variables.map(v => {
-											return (
-												<tr key={v.name}>
-													<td>{v.name}</td>
-													<td>{v.type}</td>
-												</tr>
-											)
-										})*/
-									}
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div className='input output'>
-						<label>Palavras Reservadas</label>
-						<div className='scrollable-area'>
-							<table>
-								<tbody>
-									<tr>
-										<th>Palavra</th>
-										<th>Ocorrências</th>
-									</tr>
-									{
-										/*results && results.reserved.sort((a, b) => a.name.length > b.name.length ? -1 : 1).map(r => {
-											return (
-												<tr key={r.name}>
-													<td>{r.name}</td>
-													<td>{r.count}</td>
-												</tr>
-											)
-										})*/
-									}
-								</tbody>
-							</table>
-						</div>
+					<div className='input entry'>
+						<label>Saída</label>
+						<textarea value={transpiledCode} readOnly={true} />
 					</div>
 				</div>
 			</div>
