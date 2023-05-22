@@ -26,6 +26,7 @@ export default class VariablesHandler {
 			variables.push(variableName)
 			//check if the next character is a comma, if it is remove it and trim the white space on the left
 			if (this.entryCode[0] === ',') {
+				this.entryCode = this.entryCode.replace(/^,\s*/gi, '').trimLeft()
 				variableName = this.getVariableName()
 				if (!variableName) {
 					throw Error('Variável não encontrada')
@@ -60,7 +61,7 @@ export default class VariablesHandler {
 				throw Error('Palavra reservada "' + variableName + '" não pode ser usada como nome de variável')
 			}
 			this.entryCode = this.entryCode.replace(variableNameRegex, '').trimLeft()
-			return variableName
+			return match[0]
 		}
 	}
 
