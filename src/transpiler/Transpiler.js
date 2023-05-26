@@ -1,6 +1,7 @@
+import CodeBodyHandler from "./codeBodyHandler/CodeBodyHandler"
+import CommentsHandler from "./commentsHandler/CommentsHandler"
 import HeaderHandler from "./headerHandler/HeaderHandler"
 import VariablesHandler from "./variablesHandler/VariablesHandler"
-import CommentsHandler from "./commentsHandler/CommentsHandler"
 
 export default class Transpiler{
 
@@ -9,13 +10,13 @@ export default class Transpiler{
 	}
 
 	transpile(){
-		// trim the white space on the left of the entry code
 		this.entryCode = this.entryCode.trimLeft()
 		this.entryCode = new CommentsHandler(this.entryCode).handle()
 		const algoritmName = this.getAlgoritmName()
 		const variables = this.getVariables()
+		const codeBody = new CodeBodyHandler(this.entryCode, variables).handle()
 		//using string join, create a variable exitCode, joining the algoritmName, variables and the entryCode
-		let exitCode = [this.buildAlgoritmNameOnTargetLanguage(algoritmName), this.buildVariablesOnTargetLanguage(variables), this.entryCode].join('\n\n')
+		let exitCode = [this.buildAlgoritmNameOnTargetLanguage(algoritmName), this.buildVariablesOnTargetLanguage(variables), codeBody].join('\n\n')
 		return exitCode
 	}
 
@@ -29,7 +30,6 @@ export default class Transpiler{
 
 	getAlgoritmName(){
 		let {algoritmName, codeLeft} =  new HeaderHandler(this.entryCode).handle()
-
 		this.entryCode = codeLeft
 		return algoritmName
 	}
@@ -39,4 +39,5 @@ export default class Transpiler{
 		this.entryCode = codeLeft
 		return variables
 	}
+
 }
