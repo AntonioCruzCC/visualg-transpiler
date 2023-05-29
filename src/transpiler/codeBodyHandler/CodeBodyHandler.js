@@ -1,9 +1,10 @@
 import AttributionParser from "../statementParsers/AttributionParser"
+import ConditionalParser from "../statementParsers/ConditionalParser"
 
 export default class CodeBodyHandler{
 	
 	constructor(entryCode, variables){
-		this.parsers = [AttributionParser]
+		this.parsers = [AttributionParser, ConditionalParser]
 		this.entryCode = entryCode
 		this.variables = variables
 		this.outputCode = ''

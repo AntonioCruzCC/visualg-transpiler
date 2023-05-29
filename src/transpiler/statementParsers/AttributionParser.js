@@ -1,25 +1,43 @@
-export default class AttributionParser{
+import StatementParser from "./StatementParser"
 
+export default class AttributionParser extends StatementParser{
 		constructor(statement, variables) {
+				super()
 				this.variables = variables
 				this.statement = statement
 		}
 
 		parse() {
-			//check if the statement is an attribution, an attribution has the following pattern: <variable> <- <value>, if it is, grab the variable and the value
 			if (/^([a-z][a-z0-9_]+)\s*<-\s*(.+)$/gi.test(this.statement)) {
 					const variable = this.statement.replace(/^([a-z][a-z0-9_]+)\s*<-\s*(.+)$/gi, '$1')
 					if(!this.variables.includes(variable)){
-						const error = new Error('Variável: ' + variable + ' não declarada')
-						error.code = 'Err'
-						throw error
+						this.throwError('Err', 'Variável: ' + variable + ' não declarada')
 					}
 					const value = this.statement.replace(/^([a-z][a-z0-9_]+)\s*<-\s*(.+)$/gi, '$2')
+					this.checkValueValidity(value)
 					return variable + ' = ' + value + '\n'
 			}else{
-				const error = new Error('Atribuição inválida')
-				error.code = 'InvalidParser'
-				throw error
+				this.throwError('InvalidParser', 'Atribuição inválida')
+			}
+		}
+
+		checkValueValidity(value){
+			const operationRegex = /[+\-*/()]/
+			const stringOrNumberRegex = /^\d+$|^".*"$/
+			if(stringOrNumberRegex.test(value)){
+					//the value is a simple assignment of string or number
+					return
+			}else if (operationRegex.test(value)) {
+				//the value is an operation
+				const operands = value.split(operationRegex).filter(Boolean)
+				operands.forEach(operand => {
+					//if operand is not a string, number or a variable, than the value is invalid
+					if(!stringOrNumberRegex.test(operand) && !this.variables.includes(operand)){
+						this.throwError('Err', 'Valor inválido de atribuição: ' + value)
+					}
+				})
+			} else {
+				this.throwError('Err', 'Valor inválido de atribuição: ' + value)
 			}
 		}
 }
