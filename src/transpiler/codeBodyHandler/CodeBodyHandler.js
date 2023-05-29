@@ -26,7 +26,7 @@ export default class CodeBodyHandler{
 		//divide the code in statements
 		const statements = this.entryCode.split('\n')
 		statements.forEach(statement => {
-			if(statement.trim() === 'fimalgoritmo'){
+			if(statement.trim().toLowerCase() === 'fimalgoritmo'){
 				this.outputCode += '//Fim do corpo de código'
 				return
 			}

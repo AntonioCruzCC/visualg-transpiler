@@ -11,26 +11,30 @@ export default class CommentsHandler{
     removeComentsFromEntryCode(){
         this.entryCode = this.handleSingleLineComments()
         this.entryCode = this.handleMultiLineComments()
+        this.entryCode = this.removeExtraLineBreaks()
         return this.entryCode
     }
 
     handleSingleLineComments(){
-        const singleLineCommentsRegex = /\/\/.*\n/gi
-        let match = singleLineCommentsRegex.exec(this.entryCode)
-        while(match){
-            this.entryCode = this.entryCode.replace(match[0], '')
-            match = singleLineCommentsRegex.exec(this.entryCode)
-        }
-        return this.entryCode
+        const singleLineCommentsRegex = /\/\/.*\n/
+        return this.replaceIfMatch(singleLineCommentsRegex, '')
     }
 
     handleMultiLineComments(){
-        const commentsRegex = /\/\*[\s\S]*?\*\//gi
-        let match = commentsRegex.exec(this.entryCode)
+        const multilineCommentsRegex = /\/\*[\s\S]*?\*\//
+        return this.replaceIfMatch(multilineCommentsRegex, '')
+    }
+
+    removeExtraLineBreaks(){
+        const lineBreakeRegex = /\n\n+/
+        return this.replaceIfMatch(lineBreakeRegex, '\n')
+    }
+
+    replaceIfMatch(regex, replaceValue){
+        let match = regex.exec(this.entryCode)
         while(match){
-            this.entryCode = this.entryCode.replace(match[0], '')
-            console.log()
-            match = commentsRegex.exec(this.entryCode)
+            this.entryCode = this.entryCode.replace(match[0], replaceValue)
+            match = regex.exec(this.entryCode)
         }
         return this.entryCode
     }
