@@ -1,19 +1,12 @@
 import StatementParser from "./StatementParser"
 
 export default class AttributionParser extends StatementParser {
-	constructor(statement, variables) {
-		super()
-		this.variables = variables
-		this.statement = statement
-	}
 
 	parse() {
 		const attributionRegex = /^([a-z][a-z0-9_]*)\s*<-\s*(.+)$/gi
 		if (attributionRegex.test(this.statement)) {
 			const variable = this.statement.replace(attributionRegex, '$1')
-			if (!this.variables.includes(variable)) {
-				this.throwError('Err', 'Variável: ' + variable + ' não declarada')
-			}
+			this.checkVariable(variable)
 			const value = this.statement.replace(attributionRegex, '$2')
 			this.checkValueValidity(value)
 			return variable + ' = ' + value + '\n'
@@ -31,9 +24,7 @@ export default class AttributionParser extends StatementParser {
 			return
 		} else if (variableNameRegex.test(value)) {
 			//the value may be a variable
-			if(!this.variables.includes(value)){
-				this.throwError('Err', 'Valor inválido de atribuição: ' + value)
-			}
+			this.checkVariable(value)
 		} else if (operationRegex.test(value)) {
 			//the value is an operation
 			const operands = value.split(operationRegex).filter(Boolean)
