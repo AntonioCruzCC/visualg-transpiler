@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Transpiler from './transpiler/Transpiler';
 
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer, toast } from 'react-toastify'
 
 function App() {
 
@@ -17,7 +17,8 @@ function App() {
 		try {
 			setTrasnspiledCode(new Transpiler(entryCode).transpile())
 		} catch (e) {
-			alert(e.message)
+			toast.warn(e.message)
+			// alert(e.message)
 		}
 	}
 

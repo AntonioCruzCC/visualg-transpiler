@@ -1,5 +1,3 @@
-import { toast } from "react-toastify"
-
 export default class VariablesHandler {
 
 	constructor(entryCode) {
@@ -12,8 +10,7 @@ export default class VariablesHandler {
 	handle() {
 		//check if the first word if "Var" ingoring the case
 		if (!/^var\s*/gi.test(this.entryCode)) {
-			toast.warn('Palavra reservada "Var" não encontrada')
-			// throw Error('Palavra reservada "Var" não encontrada')
+			throw Error('Palavra reservada "Var" não encontrada')
 		} else {
 			//remove the "Var" word ignoring the case and trim the white space on the left
 			this.entryCode = this.entryCode.replace(/^var\s*/gi, '').trimLeft()
@@ -51,8 +48,7 @@ export default class VariablesHandler {
 						throw Error('Tipo não encontrado')
 					}
 				} else {
-					toast.error('Caractere inválido')
-					// throw Error('Caractere inválido')
+					throw Error('Caractere inválido')
 				}
 			}
 		}
@@ -65,8 +61,7 @@ export default class VariablesHandler {
 		if (match) {
 			const variableName = match[0]
 			if (this.reservedWords.includes(variableName)) {
-				toast.warn('Palavra reservada "' + variableName + '" não pode ser usada como nome de variável')
-				// throw Error('Palavra reservada "' + variableName + '" não pode ser usada como nome de variável')
+				throw Error('Palavra reservada "' + variableName + '" não pode ser usada como nome de variável')
 			}
 			this.entryCode = this.entryCode.replace(variableNameRegex, '').trimLeft()
 			return match[0]

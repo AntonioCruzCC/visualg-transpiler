@@ -4,8 +4,6 @@ import ReadParser from "../statementParsers/ReadParser"
 import WhileParser from "../statementParsers/WhileParser"
 import WriteParser from "../statementParsers/WriteParser"
 
-import { toast } from "react-toastify"
-
 export default class CodeBodyHandler{
 	
 	constructor(entryCode, variables){
@@ -18,8 +16,7 @@ export default class CodeBodyHandler{
 	handle(){
 		//check if the first word is "inicio" ignoring the case, if it is remove it and trim the white space on the left
 		if(!/^inicio\s*/gi.test(this.entryCode)){
-			// throw Error('Palavra reservada "inicio" não encontrada')
-			toast.warn('Palavra reservada "inicio" não encontrada')
+			throw Error('Palavra reservada "inicio" não encontrada')
 		}else{
 			this.entryCode = this.entryCode.replace(/^inicio\s*/gi, '').trimLeft()
 			this.outputCode = '//Inicio do corpo de código\n\n'
