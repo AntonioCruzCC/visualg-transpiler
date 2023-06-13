@@ -1,5 +1,6 @@
 import AttributionParser from "../statementParsers/AttributionParser"
 import ConditionalParser from "../statementParsers/ConditionalParser"
+import ForParser from "../statementParsers/ForParser"
 import ReadParser from "../statementParsers/ReadParser"
 import WhileParser from "../statementParsers/WhileParser"
 import WriteParser from "../statementParsers/WriteParser"
@@ -7,7 +8,7 @@ import WriteParser from "../statementParsers/WriteParser"
 export default class CodeBodyHandler{
 	
 	constructor(entryCode, variables){
-		this.parsers = [AttributionParser, ConditionalParser, ReadParser, WriteParser, WhileParser]
+		this.parsers = [AttributionParser, ConditionalParser, ReadParser, WriteParser, WhileParser, ForParser]
 		this.entryCode = entryCode
 		this.variables = variables
 		this.outputCode = ''
@@ -51,6 +52,6 @@ export default class CodeBodyHandler{
 					throw Error(e.message)
 			}
 		}
-		throw Error('Comando inválido')
+		throw Error('Comando: ' + statement + ' inválido')
 	}
 }

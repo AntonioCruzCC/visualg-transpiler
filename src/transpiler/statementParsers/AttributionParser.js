@@ -8,7 +8,7 @@ export default class AttributionParser extends StatementParser {
 			const variable = this.statement.replace(attributionRegex, '$1')
 			this.checkVariable(variable)
 			const value = this.statement.replace(attributionRegex, '$2')
-			this.checkValueValidity(value)
+			//this.checkValueValidity(value)
 			return variable + ' = ' + value + '\n'
 		} else {
 			this.throwError('InvalidParser', 'Atribuição inválida')
