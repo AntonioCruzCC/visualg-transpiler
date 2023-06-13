@@ -2,44 +2,53 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Transpiler from './transpiler/Transpiler';
 
+import { ToastContainer } from 'react-toastify'
+
 function App() {
 
 	const [entryCode, setEntryCode] = useState('')
 	const [transpiledCode, setTrasnspiledCode] = useState('')
 
 	useEffect(() => {
-		document.title = "Transpilador de Linguagens"
+		document.title = "TRANSPILADOR DE LINGUAGENS"
 	}, []);
 
-	function transpile(){
-		try{
+	function transpile() {
+		try {
 			setTrasnspiledCode(new Transpiler(entryCode).transpile())
-		}catch(e){
+		} catch (e) {
 			alert(e.message)
 		}
 	}
 
 	return (
-		<div className='app'>
-			<div className='card'>
-				<div className='header'>
-					<h1>Transpilador de linguagens</h1>
-				</div>
-				<div className='content-grid'>
-					<div className='input entry'>
-						<label>Entrada</label>
-						<textarea value={entryCode} onChange={e => setEntryCode(e.target.value)} />
+		<>
+			<div className='app'>
+				<div className='card'>
+					<div className='header'>
+						<h1>TRANSPILADOR DE LINGUAGENS</h1>
 					</div>
-					<div className='transpile'>
-						{<button onClick={e => transpile()}><h1>{'>>'}</h1></button>}
-					</div>
-					<div className='input entry'>
-						<label>Saída</label>
-						<textarea value={transpiledCode} readOnly={true} />
+					<div className='content-grid'>
+						<div className='input entry'>
+							<label>ENTRADA</label>
+							<textarea value={entryCode} onChange={e => setEntryCode(e.target.value)} />
+						</div>
+						<div className='transpile'>
+							{
+								<button className='button' onClick={e => transpile()}>
+									<h1>{'>>'}</h1>
+								</button>
+							}
+						</div>
+						<div className='input entry'>
+							<label>SAÍDA</label>
+							<textarea value={transpiledCode} readOnly={true} />
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+			<ToastContainer />
+		</>
 	);
 }
 
