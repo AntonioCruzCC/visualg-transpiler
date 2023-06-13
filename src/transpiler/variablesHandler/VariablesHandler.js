@@ -1,4 +1,3 @@
-
 export default class VariablesHandler {
 
 	constructor(entryCode) {
@@ -24,6 +23,7 @@ export default class VariablesHandler {
 		let variableName = this.getVariableName()
 		while (variableName) {
 			if(variables.includes(variableName)){
+				// toast.error('Variável "' + variableName + '" já declarada')
 				throw Error('Variável "' + variableName + '" já declarada')
 			}
 			variables.push(variableName)
