@@ -25,7 +25,8 @@ export default class Transpiler{
 	}
 
 	buildVariablesOnTargetLanguage(variables){
-		return 'let ' + variables.join(', ')
+		if(variables.length >= 1)
+			return 'let ' + variables.join(', ')
 	}
 
 	getAlgoritmName(){

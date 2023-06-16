@@ -20,10 +20,13 @@ export default class VariablesHandler {
 
 	findVariables() {
 		let variables = []
+		//check if the next word is "inicio" ignoring case, if it is return
+		if (/^inicio\s*/gi.test(this.entryCode)) {
+			return variables;
+		}
 		let variableName = this.getVariableName()
 		while (variableName) {
 			if(variables.includes(variableName)){
-				// toast.error('Variável "' + variableName + '" já declarada')
 				throw Error('Variável "' + variableName + '" já declarada')
 			}
 			variables.push(variableName)
@@ -56,7 +59,7 @@ export default class VariablesHandler {
 	}
 
 	getVariableName() {
-		const variableNameRegex = /^[a-z][a-z0-9_]*/gi
+		const variableNameRegex = /^[aA-zZ][aA-zZ0-9_]*/gi
 		let match = variableNameRegex.exec(this.entryCode)
 		if (match) {
 			const variableName = match[0]
